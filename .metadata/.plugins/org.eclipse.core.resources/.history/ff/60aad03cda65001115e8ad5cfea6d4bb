@@ -1,0 +1,46 @@
+package org.Kardex.jF.view;
+
+import java.awt.BorderLayout;
+
+
+import java.awt.GridLayout;
+import java.io.Serializable;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import org.Kardex.jF.bean.entity.Cliente;
+import org.Kardex.jF.model.ClienteModel;
+
+public class ModificarClienteView {
+
+	private static final long serialVersionUID = 1L;
+	private JTextField Nombre;
+	private JTextField Apellido;
+	private JTextField Telefono;
+	private JTextField Correo;
+	private JTextField Ruc;
+	private JTextField Direccion;
+	private JTextField codigo;
+	private JTextField TipoCliente;
+	private ClienteModel dao = new ClienteModel();
+	
+	
+	public ModificarClienteView(JFrame parent) {
+    	super(parent, "Agregar Clientes", true);
+    	setTitle("Registro de Clientes");
+        setSize(380, 420);
+        setLayout(new BorderLayout());
+
+        add(crearPanelCampos(), BorderLayout.CENTER);
+        add(crearPanelBotones(), BorderLayout.SOUTH);
+	}
+	
+	
+}

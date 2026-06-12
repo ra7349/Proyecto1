@@ -1,0 +1,5 @@
+package org.Kardex.jF.bean.entity;
+
+public class Equipo {
+
+}

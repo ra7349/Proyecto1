@@ -1,0 +1,136 @@
+package org.Kardex.jF.view;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.HeadlessException;
+import java.io.Serializable;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+import com.sun.imageio.plugins.png.RowFilter;
+
+public class MarcoPrincipalView extends JFrame implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private PanelPrincipal panelPrincipal = new PanelPrincipal();
+	
+	
+	public MarcoPrincipalView() throws HeadlessException {
+		super();
+		this.add(panelPrincipal);
+		setTitle("Tienda Mass");
+		setSize(450,600);
+	}
+	
+	public class PanelPrincipal extends JPanel implements Serializable {
+	    private static final long serialVersionUID = 1L;
+
+	    // Componentes
+	    private JTextField txtBuscar;
+	    private JButton btnBuscar, btnNuevo, btnReporte;
+	    private JTable tablaProductos;
+	    private DefaultTableModel modeloTabla;
+	    private JLabel lblTotal;
+
+	    public PanelPrincipal() {
+	        super(new BorderLayout(0, 10));
+	        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+	        add(crearPanelBusqueda(), BorderLayout.NORTH);
+	        add(crearPanelTabla(),    BorderLayout.CENTER);
+	        add(crearPanelBotones(),  BorderLayout.SOUTH);
+	    }
+
+	    private JPanel crearPanelBusqueda() {
+	        JPanel panel = new JPanel(new BorderLayout(5, 0));
+	        txtBuscar = new JTextField();
+	        txtBuscar.setToolTipText("Nombre del producto");
+
+	        btnBuscar = new JButton("Buscar");
+	        btnBuscar.addActionListener(e -> buscarProducto());
+
+	        panel.add(new JLabel("Producto: "), BorderLayout.WEST);
+	        panel.add(txtBuscar,  BorderLayout.CENTER);
+	        panel.add(btnBuscar,  BorderLayout.EAST);
+	        return panel;
+	    }
+
+	    private JScrollPane crearPanelTabla() {
+	        String[] columnas = {"Nombre", "Precio (S/)", "Stock"};
+	        modeloTabla = new DefaultTableModel(columnas, 0) {
+	            @Override public boolean isCellEditable(int r, int c) { return false; }
+	        };
+
+	        tablaProductos = new JTable(modeloTabla);
+	        tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	        tablaProductos.getTableHeader().setReorderingAllowed(false);
+
+	        // Datos de ejemplo
+	        modeloTabla.addRow(new Object[]{"Arroz premium 1kg",  "4.50", 42});
+	        modeloTabla.addRow(new Object[]{"Aceite vegetal 900ml","8.90", 18});
+	        modeloTabla.addRow(new Object[]{"Azúcar rubia 1kg",   "3.20",  5});
+
+	        return new JScrollPane(tablaProductos);
+	    }
+
+	    private JPanel crearPanelBotones() {
+	        lblTotal = new JLabel("Total: " + modeloTabla.getRowCount() + " productos");
+
+	        btnNuevo   = new JButton("+ Nuevo producto");
+	        btnReporte = new JButton("Ver reporte");
+
+	        btnNuevo.addActionListener(e -> agregarProducto());
+	        btnReporte.addActionListener(e ->
+	            JOptionPane.showMessageDialog(this, "Función de reporte próximamente."));
+
+	        JPanel panelBtns = new JPanel(new GridLayout(1, 2, 5, 0));
+	        panelBtns.add(btnNuevo);
+	        panelBtns.add(btnReporte);
+
+	        JPanel panel = new JPanel(new BorderLayout(0, 5));
+	        panel.add(panelBtns, BorderLayout.CENTER);
+	        panel.add(lblTotal,  BorderLayout.SOUTH);
+	        return panel;
+	    }
+
+	    private void buscarProducto() {
+	        String texto = txtBuscar.getText().trim().toLowerCase();
+	        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloTabla);
+	        tablaProductos.setRowSorter(sorter);
+	        sorter.setRowFilter(texto.isEmpty() ? null : RowFilter.regexFilter("(?i)" + texto));
+	    }
+
+	    private void agregarProducto() {
+	        JTextField nombre = new JTextField();
+	        JTextField precio = new JTextField();
+	        JTextField stock  = new JTextField();
+
+	        Object[] campos = {
+	            "Nombre:",       nombre,
+	            "Precio (S/):",  precio,
+	            "Stock:",        stock
+	        };
+
+	        int ok = JOptionPane.showConfirmDialog(this, campos,
+	                 "Nuevo producto", JOptionPane.OK_CANCEL_OPTION);
+
+	        if (ok == JOptionPane.OK_OPTION) {
+	            modeloTabla.addRow(new Object[]{
+	                nombre.getText(), precio.getText(), stock.getText()
+	            });
+	            lblTotal.setText("Total: " + modeloTabla.getRowCount() + " productos");
+	        }
+	    }
+	}
+}

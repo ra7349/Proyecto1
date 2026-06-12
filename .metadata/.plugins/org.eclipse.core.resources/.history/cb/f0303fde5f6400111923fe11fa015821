@@ -1,0 +1,36 @@
+package org.Kardex.jF.view;
+
+import java.awt.BorderLayout;
+import java.io.Serializable;
+
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class FormularioEquipo extends JDialog implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private JTextField codigo;
+	private JTextField marca;
+	private JTextField modelo;
+	private JTextField numeroSerie;
+	private JTextField TipoEquipo;
+	private JTextField estado;
+	private JTextField fechaCompra;
+	
+    public FormularioEquipo(JFrame parent) {
+        super(parent, "Agregar Producto", true);
+        setSize(380, 300);
+        setLocationRelativeTo(parent);
+        setLayout(new BorderLayout());
+
+        add(crearPanelCampos(), BorderLayout.CENTER);
+        add(crearPanelBotones(), BorderLayout.SOUTH);
+    }
+    
+    private JPanel crearPanelCampos() {
+    	
+    }
+		
+
+}

@@ -1,0 +1,75 @@
+package org.Kardex.jF.model;
+
+import java.util.List;
+
+import org.Kardex.jF.bean.entity.Cliente;
+import org.Kardex.jF.usecase.CRUDUsecase;
+
+public class ClienteModel implements CRUDUsecase{
+
+	@Override
+	public boolean insertar(Cliente c) {
+	    String sql = """
+	            INSERT INTO cliente
+	            (codigo, id, nombre, apellido, telefono, correo,
+	             direccion, tipo_cliente, ruc)
+	            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+	            """;
+
+	    try (Connection cn = ConexionRepository.getConexion();
+	         PreparedStatement ps = cn.prepareStatement(sql)) {
+
+	        ps.setString(1, c.getCodigo());
+	        ps.setString(2, c.getId());
+	        ps.setString(3, c.getNombre());
+	        ps.setString(4, c.getApellido());
+
+	        if (c.getTelefono() != null) {
+	            ps.setInt(5, c.getTelefono());
+	        } else {
+	            ps.setNull(5, java.sql.Types.INTEGER);
+	        }
+
+	        ps.setString(6, c.getCorreo());
+	        ps.setString(7, c.getDireccion());
+	        ps.setString(8, c.getTipoCliente());
+
+	        if (c.getRUC() != null) {
+	            ps.setInt(9, c.getRUC());
+	        } else {
+	            ps.setNull(9, java.sql.Types.INTEGER);
+	        }
+
+	        return ps.executeUpdate() > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+
+	@Override
+	public List<Cliente> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean actualizar(Cliente c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean eliminar(Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Cliente buscarPorCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

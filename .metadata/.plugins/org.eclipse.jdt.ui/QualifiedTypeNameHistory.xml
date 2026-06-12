@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.Kardex.jF.view.MarcoPrincipalView.PanelPrincipal"/>
+    <fullyQualifiedTypeName name="java.awt.GridBagLayout"/>
+    <fullyQualifiedTypeName name="javax.swing.JFormattedTextField"/>
+    <fullyQualifiedTypeName name="java.awt.GridLayout"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="com.sun.org.apache.xpath.internal.operations.String"/>
+    <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
+    <fullyQualifiedTypeName name="org.Kardex.jF.view.FormularioProducto"/>
+    <fullyQualifiedTypeName name="javax.swing.JPanel"/>
+    <fullyQualifiedTypeName name="javax.swing.JLabel"/>
+    <fullyQualifiedTypeName name="javax.swing.JButton"/>
+    <fullyQualifiedTypeName name="org.Kardex.jF.view.FormularioEquipo"/>
+    <fullyQualifiedTypeName name="java.lang.Boolean"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="org.Kardex.jF.bean.entity.Persona"/>
+    <fullyQualifiedTypeName name="org.Kardex.jF.usecase.CRUDUsecase"/>
+    <fullyQualifiedTypeName name="sun.swing.SwingAccessor.JLightweightFrameAccessor"/>
+    <fullyQualifiedTypeName name="org.Kardex.jF.view.ClienteListarView"/>
+    <fullyQualifiedTypeName name="org.Kardex.jF.view.MarcoPrincipalView"/>
+    <fullyQualifiedTypeName name="org.Kardex.jF.view.FormularioCliente"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="javax.swing.JFrame"/>
+    <fullyQualifiedTypeName name="javax.swing.JTextField"/>
+    <fullyQualifiedTypeName name="javax.swing.JDialog"/>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="org.Kardex.jF.view.ModificarClienteView"/>
+</qualifiedTypeNameHistroy>

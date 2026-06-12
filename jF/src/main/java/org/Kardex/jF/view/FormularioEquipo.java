@@ -1,0 +1,82 @@
+package org.Kardex.jF.view;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.io.Serializable;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class FormularioEquipo extends JDialog implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private JTextField codigo;
+	private JTextField marca;
+	private JTextField modelo;
+	private JTextField numeroSerie;
+	private JTextField TipoEquipo;
+	private JTextField estado;
+	private JTextField fechaCompra;
+	private JButton btnGuardar;
+	private JButton btnCancelar;
+	
+    public FormularioEquipo(JFrame parent) {
+        super(parent, "Agregar Producto", true);
+        setSize(380, 300);
+        setLocationRelativeTo(parent);
+        setLayout(new BorderLayout());
+
+        add(crearPanelCampos(), BorderLayout.CENTER);
+        add(crearPanelBotones(), BorderLayout.SOUTH);
+    }
+    
+    private JPanel crearPanelCampos() {
+    	JPanel panel = new JPanel(new GridLayout(7,2,10,10));
+    	panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
+    	
+    	codigo = new JTextField();
+    	marca = new JTextField();
+    	modelo = new JTextField();
+    	numeroSerie = new JTextField();
+    	TipoEquipo = new JTextField();
+    	estado = new JTextField();
+    	fechaCompra = new JTextField();
+    	
+    	panel.add(new JLabel("Codigo: "));
+    	panel.add(codigo);
+    	panel.add(new JLabel("Marca: "));
+    	panel.add(marca);
+    	panel.add(new JLabel("Modelo: "));
+    	panel.add(modelo);
+    	panel.add(new JLabel("Numero de Serie: "));
+    	panel.add(numeroSerie);
+    	panel.add(new JLabel("Tipo de equipo: "));
+    	panel.add(TipoEquipo);
+    	panel.add(new JLabel("Estado: "));
+    	panel.add(estado);
+    	panel.add(new JLabel("Fecha de compra: "));
+    	panel.add(fechaCompra);
+    	
+    	return panel;
+    }
+    
+    private JPanel crearPanelBotones() {
+        JPanel panel = new JPanel(new GridLayout(1, 2, 8, 0));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 15, 15, 15));
+
+        btnCancelar = new JButton("Cancelar");
+        btnGuardar  = new JButton("Guardar");
+
+        panel.add(btnCancelar);
+        panel.add(btnGuardar);
+
+        return panel;
+    }
+		
+
+}

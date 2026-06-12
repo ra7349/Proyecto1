@@ -1,0 +1,211 @@
+package org.Kardex.jF.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.Kardex.jF.bean.entity.Cliente;
+import org.Kardex.jF.persistence.ConexionRepository;
+import org.Kardex.jF.usecase.CRUDUsecase;
+
+public class ClienteModel implements CRUDUsecase{
+
+	@Override
+	public boolean insertar(Cliente c) {
+		String sql = """
+			    SELECT
+			        p.id,
+			        p.nombre,
+			        p.apellido,
+			        p.telefono,
+			        p.correo,
+			        c.codigo,
+			        c.direccion,
+			        c.tipo_cliente,
+			        c.ruc
+			    FROM cliente c
+			    INNER JOIN persona p
+			    ON c.id_persona = p.id
+			    """;
+
+	    try (Connection cn = ConexionRepository.getConexion();
+	         PreparedStatement ps = cn.prepareStatement(sql)) {
+
+	        ps.setString(1, c.getCodigo());
+	        ps.setString(2, c.getId());
+	        ps.setString(3, c.getNombre());
+	        ps.setString(4, c.getApellido());
+
+	        if (c.getTelefono() != null) {
+	            ps.setInt(5, c.getTelefono());
+	        } else {
+	            ps.setNull(5, java.sql.Types.INTEGER);
+	        }
+
+	        ps.setString(6, c.getCorreo());
+	        ps.setString(7, c.getDireccion());
+	        ps.setString(8, c.getTipoCliente());
+
+	        if (c.getRUC() != null) {
+	            ps.setInt(9, c.getRUC());
+	        } else {
+	            ps.setNull(9, java.sql.Types.INTEGER);
+	        }
+
+	        return ps.executeUpdate() > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+
+	@Override
+	public List<Cliente> listar() {
+	    List<Cliente> lista = new ArrayList<>();
+	    String sql = "SELECT * FROM cliente";
+
+	    try (Connection cn = ConexionRepository.getConexion();
+	         PreparedStatement ps = cn.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+
+	    	while (rs.next()) {
+
+	    	    Cliente c = new Cliente();
+
+	    	    c.setId(rs.getString("id"));
+	    	    c.setNombre(rs.getString("nombre"));
+	    	    c.setApellido(rs.getString("apellido"));
+	    	    c.setTelefono(rs.getInt("telefono"));
+	    	    c.setCorreo(rs.getString("correo"));
+	    	    c.setCodigo(rs.getString("codigo"));
+	    	    c.setDireccion(rs.getString("direccion"));
+	    	    c.setTipoCliente(rs.getString("tipo_cliente"));
+	    	    c.setRUC(rs.getInt("ruc"));
+
+	    	    lista.add(c);
+	    	}
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return lista;
+	}
+
+	@Override
+	public boolean actualizar(Cliente c) {
+	    String sql = """
+	            UPDATE cliente
+	            SET codigo=?,
+	                nombre=?,
+	                apellido=?,
+	                telefono=?,
+	                correo=?,
+	                direccion=?,
+	                tipo_cliente=?,
+	                ruc=?
+	            WHERE id=?
+	            """;
+
+	    try (Connection cn = ConexionRepository.getConexion();
+	         PreparedStatement ps = cn.prepareStatement(sql)) {
+
+	        ps.setString(1, c.getCodigo());
+	        ps.setString(2, c.getNombre());
+	        ps.setString(3, c.getApellido());
+
+	        if (c.getTelefono() != null) {
+	            ps.setInt(4, c.getTelefono());
+	        } else {
+	            ps.setNull(4, java.sql.Types.INTEGER);
+	        }
+
+	        ps.setString(5, c.getCorreo());
+	        ps.setString(6, c.getDireccion());
+	        ps.setString(7, c.getTipoCliente());
+
+	        if (c.getRUC() != null) {
+	            ps.setInt(8, c.getRUC());
+	        } else {
+	            ps.setNull(8, java.sql.Types.INTEGER);
+	        }
+
+	        ps.setString(9, c.getId());
+
+	        return ps.executeUpdate() > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return false;
+	}
+
+	@Override
+	public boolean eliminar(Integer id) {
+	    try (Connection cn = ConexionRepository.getConexion()) {
+
+	        cn.setAutoCommit(false);
+
+	        PreparedStatement psCliente =
+	            cn.prepareStatement("DELETE FROM cliente WHERE id_persona=?");
+	        psCliente.setInt(1, id);
+	        psCliente.executeUpdate();
+
+	        PreparedStatement psPersona =
+	            cn.prepareStatement("DELETE FROM persona WHERE id=?");
+	        psPersona.setInt(1, id);
+
+	        boolean eliminado = psPersona.executeUpdate() > 0;
+
+	        cn.commit();
+	        return eliminado;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return false;
+	}
+
+	@Override
+	public Cliente buscarPorCodigo(String codigo) {
+	    String sql = "SELECT * FROM cliente WHERE codigo=?";
+
+	    try (Connection cn = ConexionRepository.getConexion();
+	         PreparedStatement ps = cn.prepareStatement(sql)) {
+
+	        ps.setString(1, codigo);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            Cliente c = new Cliente();
+
+	            // Atributos heredados de Persona
+	            c.setId(rs.getString("id"));
+	            c.setNombre(rs.getString("nombre"));
+	            c.setApellido(rs.getString("apellido"));
+	            c.setTelefono(rs.getObject("telefono", Integer.class));
+	            c.setCorreo(rs.getString("correo"));
+
+	            // Atributos propios de Cliente
+	            c.setCodigo(rs.getString("codigo"));
+	            c.setDireccion(rs.getString("direccion"));
+	            c.setTipoCliente(rs.getString("tipo_cliente"));
+	            c.setRUC(rs.getObject("ruc", Integer.class));
+
+	            return c;
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
+
+}

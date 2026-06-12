@@ -1,0 +1,11 @@
+package org.Kardex.jF;
+
+	
+
+public class App {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new PrincipalView().setVisible(true);
+        });
+    }
+}

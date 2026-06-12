@@ -1,0 +1,32 @@
+package org.Kardex.jF.view;
+
+import java.awt.HeadlessException;
+import java.io.Serializable;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class MarcoPrincipalView extends JFrame implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private PanelPrincipal panelPrincipal = new PanelPrincipal();
+	
+	
+	public MarcoPrincipalView() throws HeadlessException {
+		super();
+		this.add(panelPrincipal);
+		setTitle("Tienda Mass");
+		setSize(450,600);
+	}
+	
+	public class PanelPrincipal extends JPanel implements Serializable{
+
+		private static final long serialVersionUID = 1L;
+
+		public PanelPrincipal() {
+			super();
+		}
+		
+		
+	}
+}

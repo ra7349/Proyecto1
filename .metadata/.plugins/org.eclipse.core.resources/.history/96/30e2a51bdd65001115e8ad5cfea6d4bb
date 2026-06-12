@@ -1,0 +1,53 @@
+package org.Kardex.jF.view;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+
+import javax.swing.JFrame;
+
+
+public class MarcoPrincipalView extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+
+	public MarcoPrincipalView() {
+		setTitle("Sistema de Clientes");
+		setSize(900, 600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		JMenuBar barra = new JMenuBar();
+		JMenu menuArchivo = new JMenu("Archivo");
+		JMenuItem itemRegistrar = new JMenuItem("Registrar Cliente");
+		JMenuItem itemModificar = new JMenuItem("Modificar Cliente");
+		JMenuItem itemListar = new JMenuItem("Listar Clientes");
+		JMenuItem itemCerrar = new JMenuItem("Cerrar");
+		menuArchivo.add(itemRegistrar);
+		menuArchivo.add(itemModificar);
+		menuArchivo.add(itemListar);
+		menuArchivo.addSeparator();
+		menuArchivo.add(itemCerrar);
+		JMenu menuAyuda = new JMenu("Ayuda");
+		JMenuItem itemAcercaDe = new JMenuItem("Acerca de");
+		menuAyuda.add(itemAcercaDe);
+		barra.add(menuArchivo);
+		barra.add(menuAyuda);
+		setJMenuBar(barra);
+		
+		itemRegistrar.addActionListener(e -> {
+			FormularioCliente frm = new FormularioCliente(null);
+			frm.setVisible(true);
+		});
+
+		itemListar.addActionListener(e -> {
+			ClienteListarView frm = new ClienteListarView();
+			frm.setVisible(true);
+		});
+		itemAcercaDe.addActionListener(e -> {
+			JOptionPane.showMessageDialog(this, "Sistema de Clientes\nVersión 1.0");
+		});
+		itemCerrar.addActionListener(e -> System.exit(0));
+	}
+}

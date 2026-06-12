@@ -1,0 +1,66 @@
+package org.Kardex.jF.view;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.io.Serializable;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.sun.org.apache.xpath.internal.operations.String;
+
+public class FormularioProducto extends JDialog implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private JTextField codigo;
+	private JTextField nombre;
+	private JTextField descripcion;
+	private JTextField precio;
+	private JComboBox <String> cmbStock;
+	
+    public FormularioCliente(JFrame parent) {
+        super(parent, "Agregar Producto", true);
+        setSize(380, 300);
+        setLocationRelativeTo(parent);
+        setLayout(new BorderLayout());
+
+        add(crearPanelCampos(), BorderLayout.CENTER);
+        add(crearPanelBotones(), BorderLayout.SOUTH);
+    }
+    
+    private JPanel crearPanelCampos() {
+    	JPanel panel = new JPanel(new GridLayout(6,2,10,10));
+    	panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
+    	
+    	codigo = new JTextField();
+    	nombre = new JTextField();
+    	descripcion = new JTextField();
+    	precio = new JTextField();
+    	cbmStock = new JComboBox<>(new String[] {"Disponible", "agotado"});
+    	categoria = new JTextField();
+
+    	panel.add(new JLabel("Codigo: "));
+    	panel.add(codigo);
+    	panel.add(new JLabel("Nombre: "));
+    	panel.add(nombre);
+    	panel.add(new JLabel("Descripcion: "));
+    	panel.add(descripcion);
+    	panel.add(new JLabel("Precio: "));
+    	panel.add(precio);
+    	panel.add(new JLabel("Stock: "));
+    	panel.add(Stock);
+    	panel.add(new JLabel("Categoria: "));
+    	panel.add(categoria);
+    	
+    	return panel;
+    	
+    	
+    }
+	
+
+}

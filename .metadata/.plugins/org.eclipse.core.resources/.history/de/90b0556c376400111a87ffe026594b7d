@@ -1,0 +1,11 @@
+package org.Kardex.jF;
+
+import org.Kardex.jF.view.MarcoPrincipalView;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Tecnologia y servicios");
+        
+        new MarcoPrincipalView().setVisible(true);
+    }
+}

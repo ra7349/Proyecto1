@@ -1,0 +1,19 @@
+package org.Kardex.jF.usecase;
+
+import java.util.List;
+
+import org.Kardex.jF.bean.entity.Cliente;
+
+public interface CRUDUsecase {
+
+	public boolean insertar(Cliente c);
+
+	public List<Cliente> listar();
+
+	public boolean actualizar(Cliente c);
+
+	public boolean eliminar(Integer id);
+
+	public Cliente buscarPorCodigo(String codigo);
+
+}

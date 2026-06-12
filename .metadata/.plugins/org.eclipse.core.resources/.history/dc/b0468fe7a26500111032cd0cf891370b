@@ -1,0 +1,17 @@
+package org.Kardex.jF;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import org.Kardex.jF.view.FormularioCliente;
+import org.Kardex.jF.view.FormularioEquipo;
+import org.Kardex.jF.view.FormularioProducto;
+import org.Kardex.jF.view.MarcoPrincipalView;
+
+public class App {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new PrincipalView().setVisible(true);
+        });
+    }
+}

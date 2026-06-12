@@ -1,0 +1,30 @@
+package org.Kardex.jF;
+
+import javax.swing.JFrame;
+
+import org.Kardex.jF.view.ClienteListarView;
+import org.Kardex.jF.view.FormularioCliente;
+import org.Kardex.jF.view.FormularioEquipo;
+import org.Kardex.jF.view.FormularioProducto;
+import org.Kardex.jF.view.MarcoPrincipalView;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Tecnologia y servicios");
+        
+        // new MarcoPrincipalView().setVisible(true);
+        JFrame frame = new JFrame();
+        FormularioCliente formulariocliente = new FormularioCliente(frame);
+        formulariocliente.setVisible(false);
+        
+        FormularioProducto formularioProducto = new FormularioProducto(frame);
+        formularioProducto.setVisible(false);
+        
+        FormularioEquipo formularioEquipo = new FormularioEquipo(frame);
+        formularioEquipo.setVisible(false);
+        
+        ClienteListarView listar = new ClienteListarView(frame);
+        listar.setVisible(true);
+        
+    }
+}

@@ -1,0 +1,54 @@
+package org.Kardex.jF.view;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import org.Kardex.jF.model.ClienteModel;
+
+public class ClienteListarView extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	private DefaultTableModel modelo;
+	private JTable tabla;
+	private JButton btnEliminar = new JButton("Eliminar");
+	private ClienteModel dao = new ClienteModel();
+	
+	public ClienteListarView() {
+		setTitle("Listado de Clientes");
+		setSize(800, 400);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setLayout(new BorderLayout());
+		modelo = new DefaultTableModel();
+		modelo.addColumn("ID");
+		modelo.addColumn("Código");
+		modelo.addColumn("Nombre");
+		modelo.addColumn("Apellido");
+		modelo.addColumn("DNI");
+		modelo.addColumn("Dirección");
+		tabla = new JTable(modelo);
+		add(new JScrollPane(tabla), BorderLayout.CENTER);
+		JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panelBotones.add(btnEliminar);
+		add(panelBotones, BorderLayout.SOUTH);
+		btnEliminar.addActionListener(e -> eliminar());
+		cargarDatos();
+	}
+	
+	private void cargarDatos() {
+		modelo.setRowCount(0);
+		for (Cliente c : dao.listar()) {
+			modelo.addRow(new Object[] { c.getId(), c.getCodigo(), c.getNombre(), c.getApellido(), c.getDni(),
+					c.getDireccion() });
+		}
+	}
+}
+

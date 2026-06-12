@@ -1,0 +1,7 @@
+1781185656793	Encapsulate field 'direccion, ...'
+1781185661971	Encapsulate field 'tipoCliente, ...'
+1781185667512	Encapsulate field 'RUC, ...'
+1781186428075	Delete element
+1781186591950	Encapsulate field 'codigo, ...'
+1781189973837	Rename type 'ListarClientes'
+1781190013549	Rename type 'ClientesListarView'

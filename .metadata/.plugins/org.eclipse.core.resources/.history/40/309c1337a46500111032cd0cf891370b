@@ -1,0 +1,76 @@
+package org.Kardex.jF.view;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.io.Serializable;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class FormularioCliente extends JDialog implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private JTextField Nombre;
+	private JTextField Apellido;
+	private JTextField Telefono;
+	private JTextField Correo;
+	private JTextField Ruc;
+	private JTextField Direccion;
+	
+    public FormularioCliente(JFrame parent) {
+        super(parent, "Agregar Clientes", true);
+        setSize(380, 300);
+        setLocationRelativeTo(parent);
+        setLayout(new BorderLayout());
+
+        add(crearPanelCampos(), BorderLayout.CENTER);
+        add(crearPanelBotones(), BorderLayout.SOUTH);
+    }
+    
+    private JPanel crearPanelCampos() {
+    	JPanel panel = new JPanel(new GridLayout(6,2,10,10));
+    	panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
+    	
+        Nombre    = new JTextField();
+        Apellido  = new JTextField();
+        Telefono  = new JTextField();
+        Correo    = new JTextField();
+        Ruc       = new JTextField();
+        Direccion = new JTextField();
+
+        panel.add(new JLabel("Nombres: "));
+        panel.add(Nombre);
+        panel.add(new JLabel("Apellidos: "));
+        panel.add(Apellido);
+        panel.add(new JLabel("Telefono: "));
+        panel.add(Telefono);
+        panel.add(new JLabel("Correo: "));
+        panel.add(Correo);
+        panel.add(new JLabel("RUC: "));
+        panel.add(Ruc);
+        panel.add(new JLabel("Direccion: "));
+        panel.add(Direccion);
+    	
+    	return panel;
+    }
+    
+    private JPanel crearPanelBotones() {
+        JPanel panel = new JPanel(new GridLayout(1, 2, 8, 0));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 15, 15, 15));
+
+        JButton btnCancelar = new JButton("Cancelar");
+        JButton btnGuardar  = new JButton("Guardar");
+
+        panel.add(btnCancelar);
+        panel.add(btnGuardar);
+		btnGuardar.addActionListener(e -> guardar());
+		btnCancelar.addActionListener(e -> limpiar());
+
+        return panel;
+    }
+}

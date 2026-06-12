@@ -1,0 +1,18 @@
+package org.Kardex.jF;
+
+import javax.swing.JFrame;
+
+import org.Kardex.jF.view.FormularioCliente;
+import org.Kardex.jF.view.MarcoPrincipalView;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Tecnologia y servicios");
+        
+        // new MarcoPrincipalView().setVisible(true);
+        JFrame frame = new JFrame();
+        FormularioCliente formulariocliente = new FormularioCliente(frame);
+        formulariocliente.setVisible(true);
+
+    }
+}
