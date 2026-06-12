@@ -1,0 +1,40 @@
+package org.Kardex.jF.model;
+
+import java.util.List;
+
+import org.Kardex.jF.bean.entity.Producto;
+import org.Kardex.jF.usecase.CRUDProductoUsecase;
+
+public class ProductoModel implements CRUDProductoUsecase{
+
+	@Override
+	public boolean insertar(Producto p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Producto> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean actualizar(Producto c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean eliminar(Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Producto buscarPorCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

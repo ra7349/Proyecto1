@@ -1,0 +1,7 @@
+package org.Kardex.jF.model;
+
+import org.Kardex.jF.usecase.CRUDProductoUsecase;
+
+public class ProductoModel implements CRUDProductoUsecase{
+
+}

@@ -9,7 +9,5 @@ public class App {
         SwingUtilities.invokeLater(() -> {
             new MarcoPrincipalView().setVisible(true);
         });
-    System.out.println("Hello word");
-    
     }
 }

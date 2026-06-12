@@ -5,3 +5,4 @@
 1781186591950	Encapsulate field 'codigo, ...'
 1781189973837	Rename type 'ListarClientes'
 1781190013549	Rename type 'ClientesListarView'
+1781297202953	Encapsulate field 'Id, ...'

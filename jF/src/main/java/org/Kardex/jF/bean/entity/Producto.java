@@ -1,6 +1,7 @@
 package org.Kardex.jF.bean.entity;
 
 public class Producto {
+	private String Id;
 	private String codigo;
 	private String nombre;
 	private String descripcion;
@@ -44,6 +45,12 @@ public class Producto {
 	}
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+	public String getId() {
+		return Id;
+	}
+	public void setId(String id) {
+		Id = id;
 	}
 	
 }

@@ -1,0 +1,86 @@
+package org.Kardex.jF.view;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import org.Kardex.jF.bean.entity.Producto;
+import org.Kardex.jF.model.ProductoModel;
+
+public class ProductoListarView extends JDialog{
+	private static final long serialVersionUID = 1L;
+	private DefaultTableModel modelo;
+	private JTable tabla;
+	private JButton btnEliminar = new JButton("Eliminar");
+	private ProductoModel dao = new ProductoModel();
+	
+	public ProductoListarView() {
+	    modelo = new DefaultTableModel();
+
+	    setTitle("Listado de Clientes");
+	    setSize(1000, 500);
+	    setLocationRelativeTo(null);
+	    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	    setLayout(new BorderLayout());
+	    modelo.addColumn("ID");
+	    modelo.addColumn("Código");
+	    modelo.addColumn("Nombre");
+	    modelo.addColumn("Apellido");
+	    modelo.addColumn("Telefono");
+	    modelo.addColumn("Correo");
+	    modelo.addColumn("Dirección");
+	    modelo.addColumn("Tipo Cliente");
+	    modelo.addColumn("RUC");
+
+	    tabla = new JTable(modelo);
+
+	    add(new JScrollPane(tabla), BorderLayout.CENTER);
+
+	    JPanel panelBotones = new JPanel();
+	    panelBotones.add(btnEliminar);
+
+	    add(panelBotones, BorderLayout.SOUTH);
+
+	    btnEliminar.addActionListener(e -> eliminar());
+
+	    cargarDatos();
+
+	}
+	
+	private void cargarDatos() {
+		modelo.setRowCount(0);
+		for (Producto p : dao.listar()) {
+		    modelo.addRow(new Object[] {
+		        p.getId(),
+		        p.getCodigo(),
+		        p.getNombre(),
+		        p.getDescripcion(),
+		        p.getPrecio(),
+		        p.getStock(),
+		        p.getCategoria(),
+		    });
+		}
+	}
+	
+	private void eliminar() {
+		int fila = tabla.getSelectedRow();
+		if (fila == -1) {
+			JOptionPane.showMessageDialog(this, "Seleccione un cliente");
+			return;
+		}
+		int idCliente = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+		int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el cliente seleccionado?",
+				"Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+		if (respuesta == JOptionPane.YES_OPTION) {
+			dao.eliminar(idCliente);
+			cargarDatos();
+			JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente");
+		}
+	}
+}

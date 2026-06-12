@@ -23,10 +23,12 @@ public class MarcoPrincipalView extends JFrame {
 		JMenuItem itemRegistrar = new JMenuItem("Registrar Cliente");
 		JMenuItem itemModificar = new JMenuItem("Modificar Cliente");
 		JMenuItem itemListar = new JMenuItem("Listar Clientes");
+		JMenuItem itemListaP = new JMenuItem("Listar Productos");
 		JMenuItem itemCerrar = new JMenuItem("Cerrar");
 		menuArchivo.add(itemRegistrar);
 		menuArchivo.add(itemModificar);
 		menuArchivo.add(itemListar);
+		menuArchivo.add(itemListaP);
 		menuArchivo.addSeparator();
 		menuArchivo.add(itemCerrar);
 		JMenu menuAyuda = new JMenu("Ayuda");
@@ -50,6 +52,12 @@ public class MarcoPrincipalView extends JFrame {
 			ClienteListarView frm = new ClienteListarView();
 			frm.setVisible(true);
 		});
+		
+		itemListaP.addActionListener(e -> {
+			ProductoListarView frm = new ProductoListarView();
+			frm.setVisible(true);
+		});
+		
 		itemAcercaDe.addActionListener(e -> {
 			JOptionPane.showMessageDialog(this, "Sistema de Clientes\nVersión 1.0");
 		});

@@ -1,0 +1,66 @@
+package org.Kardex.jF.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.List;
+
+import org.Kardex.jF.bean.entity.Producto;
+import org.Kardex.jF.persistence.ConexionRepository;
+import org.Kardex.jF.usecase.CRUDProductoUsecase;
+
+public class ProductoModel implements CRUDProductoUsecase{
+
+	@Override
+	public boolean insertar(Producto p) {
+	    String sql = """
+		        INSERT INTO cliente
+		        (codigo,nombre,apellido,telefono,correo,direccion,tipo_cliente,ruc)
+		        VALUES (?,?,?,?,?,?,?,?)
+		        """;
+
+		    try (Connection cn = ConexionRepository.getConexion();
+		         PreparedStatement ps = cn.prepareStatement(sql)) {
+
+		        ps.setString(1, p.getCodigo());
+		        ps.setString(2, p.getNombre());
+		        ps.setString(3, p.getDescripcion());
+		        ps.setDouble(4, p.getPrecio());
+		        ps.setInt(5, p.getStock());
+
+		        ps.setString(5, p.getCategoria());
+
+		        return ps.executeUpdate() > 0;
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return false;
+		return false;
+	}
+
+	@Override
+	public List<Producto> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean actualizar(Producto c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean eliminar(Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Producto buscarPorCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

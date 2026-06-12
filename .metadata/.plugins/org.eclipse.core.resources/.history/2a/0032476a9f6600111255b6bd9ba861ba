@@ -1,0 +1,5 @@
+package org.Kardex.jF.usecase;
+
+public interface CRUDProductoUsecase {
+
+}

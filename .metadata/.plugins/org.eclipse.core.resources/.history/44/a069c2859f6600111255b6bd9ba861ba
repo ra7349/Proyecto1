@@ -1,0 +1,18 @@
+package org.Kardex.jF.usecase;
+
+import java.util.List;
+
+import org.Kardex.jF.bean.entity.Producto;
+
+public interface CRUDProductoUsecase {
+	public boolean insertar(Produto p);
+
+	public List<Cliente> listar();
+
+	public boolean actualizar(Cliente c);
+
+	public boolean eliminar(Integer id);
+
+	public Cliente buscarPorCodigo(String codigo);
+
+}
