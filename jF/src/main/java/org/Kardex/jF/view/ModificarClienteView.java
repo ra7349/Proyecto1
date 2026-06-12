@@ -106,7 +106,6 @@ public class ModificarClienteView extends JDialog implements Serializable {
 			return;
 		}
 		idCliente = c.getId();
-
 		codigo.setText(c.getCodigo());
 		Nombre.setText(c.getNombre());
 		Apellido.setText(c.getApellido());

@@ -97,7 +97,7 @@ public class ClienteModel implements CRUDUsecase{
 	                direccion=?,
 	                tipo_cliente=?,
 	                ruc=?
-	            WHERE id=?
+	            WHERE id_cliente=?
 	            """;
 
 	    try (Connection cn = ConexionRepository.getConexion();
@@ -123,7 +123,7 @@ public class ClienteModel implements CRUDUsecase{
 	            ps.setNull(8, java.sql.Types.INTEGER);
 	        }
 
-	        ps.setString(9, c.getId());
+	        ps.setInt(9, Integer.parseInt(c.getId()));
 
 	        return ps.executeUpdate() > 0;
 
@@ -161,14 +161,15 @@ public class ClienteModel implements CRUDUsecase{
 	            Cliente c = new Cliente();
 
 	            // Atributos heredados de Persona
-	            c.setId(rs.getString("id"));
+	            c.setId(rs.getString("id_cliente"));
+	            c.setCodigo(rs.getString("codigo"));
 	            c.setNombre(rs.getString("nombre"));
 	            c.setApellido(rs.getString("apellido"));
 	            c.setTelefono(rs.getObject("telefono", Integer.class));
 	            c.setCorreo(rs.getString("correo"));
 
 	            // Atributos propios de Cliente
-	            c.setCodigo(rs.getString("codigo"));
+	            
 	            c.setDireccion(rs.getString("direccion"));
 	            c.setTipoCliente(rs.getString("tipo_cliente"));
 	            c.setRUC(rs.getObject("ruc", Integer.class));

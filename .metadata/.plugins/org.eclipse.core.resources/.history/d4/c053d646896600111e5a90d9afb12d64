@@ -1,43 +1,46 @@
 package org.Kardex.jF.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.Kardex.jF.bean.entity.Cliente;
+import org.Kardex.jF.persistence.ConexionRepository;
 import org.Kardex.jF.usecase.CRUDUsecase;
 
 public class ClienteModel implements CRUDUsecase{
 
-	@Override
 	public boolean insertar(Cliente c) {
+
 	    String sql = """
-	            INSERT INTO cliente
-	            (codigo, id, nombre, apellido, telefono, correo,
-	             direccion, tipo_cliente, ruc)
-	            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-	            """;
+	        INSERT INTO cliente
+	        (codigo,nombre,apellido,telefono,correo,direccion,tipo_cliente,ruc)
+	        VALUES (?,?,?,?,?,?,?,?)
+	        """;
 
 	    try (Connection cn = ConexionRepository.getConexion();
 	         PreparedStatement ps = cn.prepareStatement(sql)) {
 
 	        ps.setString(1, c.getCodigo());
-	        ps.setString(2, c.getId());
-	        ps.setString(3, c.getNombre());
-	        ps.setString(4, c.getApellido());
+	        ps.setString(2, c.getNombre());
+	        ps.setString(3, c.getApellido());
 
 	        if (c.getTelefono() != null) {
-	            ps.setInt(5, c.getTelefono());
+	            ps.setInt(4, c.getTelefono());
 	        } else {
-	            ps.setNull(5, java.sql.Types.INTEGER);
+	            ps.setNull(4, java.sql.Types.INTEGER);
 	        }
 
-	        ps.setString(6, c.getCorreo());
-	        ps.setString(7, c.getDireccion());
-	        ps.setString(8, c.getTipoCliente());
+	        ps.setString(5, c.getCorreo());
+	        ps.setString(6, c.getDireccion());
+	        ps.setString(7, c.getTipoCliente());
 
 	        if (c.getRUC() != null) {
-	            ps.setInt(9, c.getRUC());
+	            ps.setInt(8, c.getRUC());
 	        } else {
-	            ps.setNull(9, java.sql.Types.INTEGER);
+	            ps.setNull(8, java.sql.Types.INTEGER);
 	        }
 
 	        return ps.executeUpdate() > 0;
@@ -45,6 +48,7 @@ public class ClienteModel implements CRUDUsecase{
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+
 	    return false;
 	}
 
@@ -57,25 +61,22 @@ public class ClienteModel implements CRUDUsecase{
 	         PreparedStatement ps = cn.prepareStatement(sql);
 	         ResultSet rs = ps.executeQuery()) {
 
-	        while (rs.next()) {
-	            Cliente c = new Cliente();
+	    	while (rs.next()) {
 
-	            c.setCodigo(rs.getString("codigo"));
+	    	    Cliente c = new Cliente();
 
-	            // Atributos heredados de Persona
-	            c.setId(rs.getString("id"));
-	            c.setNombre(rs.getString("nombre"));
-	            c.setApellido(rs.getString("apellido"));
-	            c.setTelefono(rs.getInt("telefono"));
-	            c.setCorreo(rs.getString("correo"));
+	    	    c.setId(rs.getString("id_cliente"));
+	    	    c.setCodigo(rs.getString("codigo"));
+	    	    c.setNombre(rs.getString("nombre"));
+	    	    c.setApellido(rs.getString("apellido"));
+	    	    c.setTelefono(rs.getInt("telefono"));
+	    	    c.setCorreo(rs.getString("correo"));
+	    	    c.setDireccion(rs.getString("direccion"));
+	    	    c.setTipoCliente(rs.getString("tipo_cliente"));
+	    	    c.setRUC(rs.getInt("ruc"));
 
-	            // Atributos propios de Cliente
-	            c.setDireccion(rs.getString("direccion"));
-	            c.setTipoCliente(rs.getString("tipo_cliente"));
-	            c.setRUC(rs.getInt("ruc"));
-
-	            lista.add(c);
-	        }
+	    	    lista.add(c);
+	    	}
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -96,7 +97,7 @@ public class ClienteModel implements CRUDUsecase{
 	                direccion=?,
 	                tipo_cliente=?,
 	                ruc=?
-	            WHERE id=?
+	            WHERE id_cliente=?
 	            """;
 
 	    try (Connection cn = ConexionRepository.getConexion();
@@ -122,7 +123,7 @@ public class ClienteModel implements CRUDUsecase{
 	            ps.setNull(8, java.sql.Types.INTEGER);
 	        }
 
-	        ps.setString(9, c.getId());
+	        ps.setInt(9, Integer.parseInt(c.getId()));
 
 	        return ps.executeUpdate() > 0;
 
@@ -134,30 +135,15 @@ public class ClienteModel implements CRUDUsecase{
 	}
 
 	@Override
-	public boolean eliminar(String id) {
-	    try (Connection cn = ConexionRepository.getConexion()) {
-
-	        cn.setAutoCommit(false);
-
-	        PreparedStatement psCliente =
-	            cn.prepareStatement("DELETE FROM cliente WHERE id_persona=?");
-	        psCliente.setString(1, id);
-	        psCliente.executeUpdate();
-
-	        PreparedStatement psPersona =
-	            cn.prepareStatement("DELETE FROM persona WHERE id=?");
-	        psPersona.setString(1, id);
-
-	        boolean eliminado = psPersona.executeUpdate() > 0;
-
-	        cn.commit();
-	        return eliminado;
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return false;
+	public boolean eliminar(Integer id) {
+		String sql = "DELETE FROM cliente WHERE id_cliente=?";
+		try (Connection cn = ConexionRepository.getConexion(); PreparedStatement ps = cn.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			return ps.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
@@ -175,14 +161,15 @@ public class ClienteModel implements CRUDUsecase{
 	            Cliente c = new Cliente();
 
 	            // Atributos heredados de Persona
-	            c.setId(rs.getString("id"));
+	            c.setId(rs.getString("id_cliente"));
+	            
 	            c.setNombre(rs.getString("nombre"));
 	            c.setApellido(rs.getString("apellido"));
 	            c.setTelefono(rs.getObject("telefono", Integer.class));
 	            c.setCorreo(rs.getString("correo"));
 
 	            // Atributos propios de Cliente
-	            c.setCodigo(rs.getString("codigo"));
+	            
 	            c.setDireccion(rs.getString("direccion"));
 	            c.setTipoCliente(rs.getString("tipo_cliente"));
 	            c.setRUC(rs.getObject("ruc", Integer.class));
@@ -196,4 +183,5 @@ public class ClienteModel implements CRUDUsecase{
 
 	    return null;
 	}
+
 }
