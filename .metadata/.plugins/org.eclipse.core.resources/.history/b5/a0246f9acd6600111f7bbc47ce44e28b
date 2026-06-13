@@ -1,0 +1,8 @@
+package org.Kardex.jF.view;
+
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+
+public class RegistrarProductoView extends JDialog{
+
+}

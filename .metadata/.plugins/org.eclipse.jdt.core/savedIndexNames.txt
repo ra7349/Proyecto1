@@ -1,11 +1,9 @@
-INDEX VERSION 1.134+C:\Users\COMPUCENTER\Documents\Algoritmo y Estructura de Datos\Proyecto1\.metadata\.plugins\org.eclipse.jdt.core
+INDEX VERSION 1.134+/home/desktop/Escritorio/Proyecto1/.metadata/.plugins/org.eclipse.jdt.core
+388595185.index
+2029497243.index
+435128277.index
 1865797976.index
-3507501995.index
-455518578.index
-669383272.index
-2588567886.index
-1882993114.index
-1778730536.index
-3060607525.index
-1576060927.index
-1909718732.index
+2282468302.index
+120664505.index
+2865709702.index
+3439181639.index

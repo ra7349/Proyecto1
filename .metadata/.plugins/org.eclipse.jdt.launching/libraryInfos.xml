@@ -19,7 +19,19 @@
             <entry path="C:\Program Files\Java\jre-1.8\lib\endorsed"/>
         </endorsedDirs>
     </libraryInfo>
+    <libraryInfo home="/home/desktop/Eclipse/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.10.v20260205-0638/jre" version="21.0.10"/>
     <libraryInfo home="C:\Users\COMPUCENTER\Downloads\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.10.v20260205-0638" version="21.0.10">
+        <bootpath>
+            <entry path="null"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="null"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="null"/>
+        </endorsedDirs>
+    </libraryInfo>
+    <libraryInfo home="/home/desktop/Eclipse/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.10.v20260205-0638" version="21.0.10">
         <bootpath>
             <entry path="null"/>
         </bootpath>
